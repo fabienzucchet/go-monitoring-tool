@@ -1,0 +1,17 @@
+version: "3.10"
+
+services:
+  influxdb:
+    image: influxdb:2.0-alpine
+    ports:
+      - 8086:8086
+    environment:
+      DOCKER_INFLUXDB_INIT_MODE: setup
+      DOCKER_INFLUXDB_INIT_USERNAME: user
+      DOCKER_INFLUXDB_INIT_PASSWORD: password
+      DOCKER_INFLUXDB_INIT_ORG: fabienzucchet
+      DOCKER_INFLUXDB_INIT_BUCKET: go-monitoring-tool
+    volumes:
+      - $PWD/data:/var/lib/influxdb2
+      - $PWD/config:/etc/influxdb2
+
