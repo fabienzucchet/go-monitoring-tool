@@ -1,10 +1,12 @@
 package main
 
 import (
+	"context"
+	"fmt"
 	"log"
 	"net/http"
 	"os"
-	"sync"
+	"text/template"
 	"time"
 
 	influxdb2 "github.com/influxdata/influxdb-client-go/v2"
@@ -16,7 +18,6 @@ type InfluxConfig struct {
 	org string
 	url string
 }
-
 
 func check(target string, interval int, influxConfig *InfluxConfig) {
 
@@ -47,6 +48,38 @@ func check(target string, interval int, influxConfig *InfluxConfig) {
 	}
 }
 
+func query(influxConfig *InfluxConfig) {
+	query := fmt.Sprintf("from(bucket:\"%v\")|> range(start: -1h) |> filter(fn: (r) => r._measurement == \"healthcheck\")", influxConfig.bucket)
+
+	client := influxdb2.NewClient(influxConfig.url, influxConfig.token)
+	// always close client at the end
+	defer client.Close()
+
+	// Get query client
+	queryAPI := client.QueryAPI(influxConfig.org)
+
+	// get QueryTableResult
+	result, err := queryAPI.Query(context.Background(), query)
+
+	if err == nil {
+	// Iterate over query response
+	for result.Next() {
+		// Notice when group key has changed
+		if result.TableChanged() {
+		fmt.Printf("table: %s\n", result.TableMetadata().String())
+		}
+		// Access data
+		fmt.Println("time:", result.Record().Time(), "value:", result.Record().Value())
+	}
+	// check for an error
+	if result.Err() != nil {
+		fmt.Printf("query parsing error: %\n", result.Err().Error())
+	}
+	} else {
+		panic(err)
+	}
+}
+
 func main() {
 
 	influxConfig := InfluxConfig{
@@ -64,10 +97,20 @@ func main() {
 		go check(target, 15, &influxConfig)
 	}
 
-	log.Println("Started the monitoring tool. ⚡️")
+	log.Println("Started the monitoring tool. 🏁")
 
-	var wg sync.WaitGroup
-	wg.Add(1)
-	wg.Wait()
+	// HTTP handlers
+	tmpl := template.Must(template.ParseFiles("templates/index.html"))
+	http.HandleFunc("/", func(w http.ResponseWriter, r *http.Request) {
+		query(&influxConfig)
+        tmpl.Execute(w, "lol")
+    })
+
+	// Serve static files
+	fs := http.FileServer(http.Dir("static/"))
+    http.Handle("/static/", http.StripPrefix("/static/", fs))
+
+	// Start HTTP server
+	http.ListenAndServe(":8081", nil)
 
 }
