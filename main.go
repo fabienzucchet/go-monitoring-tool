@@ -39,7 +39,7 @@ func check(target string, interval int, influxConfig *InfluxConfig) {
 		} else {
 			elapsed := time.Since(start)
 			log.Println("Target :", target, "is healthy and responded in", elapsed, "! ✅")
-			p := influxdb2.NewPointWithMeasurement("healthcheck").AddTag("target", target).AddField("status", 1).AddField("response_time", float32(elapsed)).AddField("status_code", int(resp.StatusCode)).SetTime(time.Now())
+			p := influxdb2.NewPointWithMeasurement("healthcheck").AddTag("target", target).AddField("status", 1).AddField("response_time", float32(elapsed)).AddField("status_code", resp.StatusCode).SetTime(time.Now())
 			// write point asynchronously
 			writeAPI.WritePoint(p)
 		}
