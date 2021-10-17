@@ -12,6 +12,16 @@ services:
       DOCKER_INFLUXDB_INIT_ORG: fabienzucchet
       DOCKER_INFLUXDB_INIT_BUCKET: go-monitoring-tool
     volumes:
-      - $PWD/data:/var/lib/influxdb2
-      - $PWD/config:/etc/influxdb2
+      - $PWD/.docker/influxdb/data:/var/lib/influxdb2
+      - $PWD/.docker/influxdb/config:/etc/influxdb2
 
+  mongodb:
+    image: mongo:5.0-focal
+    ports:
+      - 27017:27017
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: user
+      MONGO_INITDB_ROOT_PASSWORD: password
+    volumes:
+      - $PWD/.docker/mongodb/data:/data/db
+      - $PWD/.docker/mongodb/mongod.conf:/etc/mongod.conf

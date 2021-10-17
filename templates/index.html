@@ -1,1 +1,111 @@
-<h1>{{.}}</h1>
+<!doctype html>
+<html>
+
+<head lang="en">
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>🔎 Go Monitoring Tool</title>
+    
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@300&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Lato&family=Montserrat&family=Open+Sans:wght@300&display=swap" rel="stylesheet"> 
+    
+    <!-- Custom CSS -->
+    <link href="/static/style.css" rel="stylesheet">
+</head>
+
+<body>
+    
+    <h1 class="page-title title">Go monitoring tool 🔍</h1>
+
+    <h2 class="section-title title">Availability</h2>
+    <div class="section-body">
+        <div class="new-target-widget widget">
+            <h3 class="widget-title title">Monitor a new website</h3>
+            <div class="widget-body new-target-widget-body">
+                <div class="message-wrapper" id="form-message-wrapper"></div>
+                <form class="new-target-form" id="new-target-form" action="/target" method="post">
+                    <div class="new-target-form">
+                        <label class="form-label" for="url">Enter the target website : </label>
+                        <input class="form-input" type="text" name="url" id="url" required>
+                    </div>
+                    <div class="new-target-form">
+                        <label class="form-label" for="collectioninterval">Enter the collection interval : </label>
+                        <input class="form-input" type="number" name="collectioninterval" id="collectioninterval" required>
+                    </div>
+                    <div class="new-target-form">
+                        <input class="submit-button" type="submit" value="Start monitoring!">
+                    </div>
+                </form>
+            </div>
+        </div>
+    
+        <div class="availability-widget widget">
+            <h3 class="widget-title title">Website availability over last 10m</h3>
+            <div class="widget-body availability-widget-body" id="availability-widget-body">
+                <!-- <div class="availability-item">1.00</div>
+                <div class="availability-bar-item">
+                    <span class="progress-bar progress-bar-green"></span>
+                </div>
+                <div class="availability-hostname">https://google.fr</div>
+                <div class="availability-item">1.00</div>
+                <div class="availability-bar-item">
+                    <span class="progress-bar progress-bar-green"></span>
+                </div>
+                <div class="availability-hostname">https://padok.fr</div>
+                <div class="availability-item">0.58</div>
+                <div class="availability-bar-item">
+                    <span class="progress-bar progress-bar-yellow"></span>
+                </div>
+                <div class="availability-hostname">https://viarezo.fr</div>
+                <div class="availability-item">0.00</div>
+                <div class="availability-bar-item">
+                    <span class="progress-bar progress-bar-red"></span>
+                </div>
+                <div class="availability-hostname">http://localhost:8000</div> -->
+            </div>
+        </div>
+    </div>
+    
+    <h2 class="section-title title">Latency</h2>
+    <div class="section-body">
+        <div class="latency-widget widget">
+            <h3 class="widget-title title">Website latency over last 10m</h3>
+            <div class="widget-body latency-widget-body">
+                <canvas id="latency-chart"></canvas>
+            </div>
+        </div>
+    
+        <div class="latency-distribution-widget widget">
+            <h3 class="widget-title title">Latency distribution over last 10m</h3>
+            <div class="widget-body latency-distribution-widget-body">
+                <canvas id="latency-distribution-chart"></canvas>
+            </div>
+        </div>
+    </div>
+
+    <h2 class="section-title title">Errors</h2>
+    <div class="section-body">
+        <div class="status-code-widget widget">
+            <h3 class="widget-title title">HTTP status over last 10m</h3>
+            <div class="widget-body status-code-widget-body">
+                <canvas id="status-code-chart"></canvas>
+            </div>
+        </div>
+    </div>
+
+    <!-- Chart.js -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+    <!-- Custom JavaScript -->
+    <script src="/static/scripts/addTargetWidget.js"></script>
+    <script src="/static/scripts/availabilityWidget.js"></script>
+    <script src="/static/scripts/latencyWidget.js"></script>
+    <script src="/static/scripts/statusCodeWidget.js"></script>
+    <script src="/static/scripts/latencyDistributionWidget.js"></script>
+
+</body>
+
+</html>

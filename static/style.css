@@ -1,0 +1,142 @@
+
+body {
+    font-family: 'Open Sans', sans-serif;
+}
+
+.title {
+    color: #3A405A;
+    font-family: 'Lato', sans-serif;
+}
+
+.section-body {
+    display: grid;
+    grid-template-rows: auto;
+    grid-template-columns: 1fr 1fr;
+}
+
+@media screen and (max-width: 960px) {
+    .section-body {
+        display: grid;
+        grid-template-rows: auto;
+        grid-template-columns: 1fr;
+    }
+}
+
+.widget {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+    background-color: #F0F1F0;
+    border-radius: 5px;
+    padding: 10px;
+    margin: 10px;
+    border: 3px solid #A0A5A0;
+}
+
+.widget-title {
+    margin: 0.5rem 0;
+}
+
+.widget-body {
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+    align-self: stretch;
+}
+
+.new-target-widget-body {
+    display: flex;
+    flex-direction: column;
+}
+
+.message-wrapper {
+    text-align: center;
+    padding: 5px 10px;
+    margin: 5px;
+    border-radius: 5px;
+}
+
+.message-success {
+    background-color: #CAE59D;
+}
+
+.message-warning {
+    background-color: #EFD2B3;
+}
+
+.message-error {
+    background-color: #EA9997;
+}
+
+.message-info {
+    background-color: #A5C6E0;
+}
+
+div.new-target-form {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    margin: 5px;
+}
+
+.form-label {
+    padding: 0 10px;
+}
+
+.form-input {
+    border-radius: 5px;
+    border-width: 1px;
+    -webkit-appearance: none;
+    -moz-appearance: textfield;
+}
+
+.submit-button {
+    padding: 5px;
+    margin: 5px;
+    border-radius: 5px;
+    border: 1px solid #A0A5A0;
+}
+
+.availability-widget-body {
+    align-self: stretch;
+    display: grid;
+    grid-template-columns: min-content auto min-content;
+    grid-template-rows: auto;
+}
+
+.availability-item {
+    justify-self: start;
+    padding: 0 0.2rem;
+}
+
+.availability-bar-item {
+    justify-self: stretch;
+    display: flex;
+    height: 50%;
+    align-self: center;
+    margin: 0 10px;
+    border-radius: 5px;
+}
+
+.availability-hostname {
+    justify-self: end;
+    padding: 0 0.2rem;
+}
+
+.progress-bar {
+    align-self: stretch;
+    border-radius: 5px;
+}
+
+.progress-bar-green {
+    background-color: #688E26;
+}
+
+.progress-bar-yellow {
+    background-color: #D58936;
+}
+
+.progress-bar-red {
+    background-color: #931F1D;
+}

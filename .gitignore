@@ -18,5 +18,7 @@
 bin/
 
 # Docker volumes
-config/
-data/
+.docker
+
+# Other
+/tmp
